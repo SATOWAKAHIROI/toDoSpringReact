@@ -1,8 +1,8 @@
-import React from "react";
+import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <div>
         <h1>ToDo List</h1>
         <input type="text" placeholder="Add a new task" />
@@ -13,7 +13,7 @@ function App() {
           <li>Task 3</li>
         </ul>
       </div>
-    </>
+    </AuthProvider>
   );
 }
 

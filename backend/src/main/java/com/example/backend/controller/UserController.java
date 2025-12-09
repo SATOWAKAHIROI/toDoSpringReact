@@ -30,7 +30,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<ApiResponse<AuthResponse>> login(@Valid @RequestBody LoginRequest loginRequest) {
         AuthResponse auth = userService.authUser(loginRequest.getEmail(), loginRequest.getPassword());
 
