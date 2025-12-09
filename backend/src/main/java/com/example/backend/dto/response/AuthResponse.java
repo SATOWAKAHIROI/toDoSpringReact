@@ -4,9 +4,9 @@ public class AuthResponse {
     private String token;
     private UserResponse user;
 
-    public AuthResponse(String token, UserResponse user){
+    public AuthResponse(String token, UserResponse userResponse) {
         this.token = token;
-        this.user = user;
+        this.user = userResponse;
     }
 
     public String getToken() {
