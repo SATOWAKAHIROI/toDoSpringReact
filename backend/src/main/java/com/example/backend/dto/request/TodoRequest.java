@@ -17,8 +17,8 @@ public class TodoRequest {
         this.title = title;
     }
 
-    public boolean getCompleted(){
-        return this.completed;
+    public boolean isCompleted() {
+        return completed;
     }
 
     public void setCompleted(boolean completed){
