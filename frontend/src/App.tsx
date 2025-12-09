@@ -1,18 +1,24 @@
-import { AuthProvider } from "./contexts/AuthContext";
+import Login from "./components/pages/auth/Login";
+import Register from "./components/pages/auth/UserRegister";
+import { AuthProvider } from "./components/contexts/AuthContext";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import TodoList from "./components/pages/TodoList";
 
 function App() {
   return (
     <AuthProvider>
-      <div>
-        <h1>ToDo List</h1>
-        <input type="text" placeholder="Add a new task" />
-        <button>Add</button>
-        <ul>
-          <li>Task 1</li>
-          <li>Task 2</li>
-          <li>Task 3</li>
-        </ul>
-      </div>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/todo" element={<TodoList />} />
+        </Routes>
+      </Router>
     </AuthProvider>
   );
 }
