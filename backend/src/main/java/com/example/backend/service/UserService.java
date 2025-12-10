@@ -7,13 +7,16 @@ import com.example.backend.dto.response.AuthResponse;
 import com.example.backend.dto.response.UserResponse;
 import com.example.backend.entity.User;
 import com.example.backend.repository.UserRepository;
+import com.example.backend.security.JwtTokenProvider;
 
 @Service
 public class UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, JwtTokenProvider jwtTokenProvider) {
         this.userRepository = userRepository;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     /**
@@ -38,8 +41,8 @@ public class UserService {
             return null;
         }
 
-        // トークン生成処理は後ほど実装する
-        String token = "testToken";
+        // トークン生成
+        String token = jwtTokenProvider.generateToken(user.getId(), user.getEmail());
 
         UserResponse userResponse = UserResponse.from(user);
 
