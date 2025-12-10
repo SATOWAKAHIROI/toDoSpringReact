@@ -12,7 +12,7 @@ import com.example.backend.repository.UserRepository;
 public class UserService {
     private UserRepository userRepository;
 
-    public UserService(UserRepository userRepository, UserResponse userResponse) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

@@ -28,24 +28,24 @@ public class Todo {
     private boolean completed;
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by", nullable = false)
-    private User created_by;
+    private User createdBy;
 
     @PrePersist
     protected void onCreate(){
-        this.created_at = LocalDateTime.now();
-        this.updated_at = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
     protected void onUpdate(){
-        this.updated_at = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     public Long getId(){
@@ -73,27 +73,27 @@ public class Todo {
     }
 
     public LocalDateTime getCreatedAt(){
-        return this.created_at;
+        return this.createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime created_at){
-        this.created_at = created_at;
+    public void setCreatedAt(LocalDateTime createdAt){
+        this.createdAt = createdAt;
     }
 
     public LocalDateTime getUpdatedAt(){
-        return this.updated_at;
+        return this.updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updated_at){
-        this.updated_at = updated_at;
+    public void setUpdatedAt(LocalDateTime updatedAt){
+        this.updatedAt = updatedAt;
     }
 
     public User getCreatedBy(){
-        return this.created_by;
+        return this.createdBy;
     }
 
-    public void setCreatedBy(User created_by){
-        this.created_by = created_by;
+    public void setCreatedBy(User createdBy){
+        this.createdBy = createdBy;
     }
 
 

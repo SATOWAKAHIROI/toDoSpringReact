@@ -24,20 +24,20 @@ public class User {
     private String password;
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 
     @PrePersist
     protected void onCreate(){
-        created_at = LocalDateTime.now();
-        updated_at = LocalDateTime.now();
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
     protected void onUpdate(){
-        updated_at = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
 
     public Long getId(){
@@ -73,18 +73,18 @@ public class User {
     }
 
     public LocalDateTime getCreatedAt(){
-        return this.created_at;
+        return this.createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime created_at){
-        this.created_at = created_at;
+    public void setCreatedAt(LocalDateTime createdAt){
+        this.createdAt = createdAt;
     }
 
     public LocalDateTime getUpdatedAt(){
-        return this.updated_at;
+        return this.updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updated_at){
-        this.updated_at = updated_at;
+    public void setUpdatedAt(LocalDateTime updatedAt){
+        this.updatedAt = updatedAt;
     }
 }
