@@ -1,12 +1,7 @@
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/UserRegister";
 import { AuthProvider } from "./contexts/AuthContext";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import TodoList from "./pages/TodoList";
 
 function App() {
