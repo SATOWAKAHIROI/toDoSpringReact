@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
 
 type form = {
@@ -50,7 +50,6 @@ export default function Register() {
         formData.email,
         formData.password
       );
-      console.log(response);
       if (!response.success) return;
       navigate("/login", {
         state: { message: "登録完了しました。ログインしてください。" },
@@ -151,6 +150,12 @@ export default function Register() {
           >
             {loading ? "登録中..." : "登録"}
           </button>
+          <Link
+            to="/login"
+            className="block text-center text-blue-600 hover:text-blue-800 font-semibold underline mt-4"
+          >
+            ログインはこちらから
+          </Link>
         </form>
       </div>
     </div>
