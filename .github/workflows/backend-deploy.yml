@@ -77,8 +77,9 @@ jobs:
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "GitHub Actions"
-          git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
-          git subtree push --prefix backend heroku main || git push heroku `git subtree split --prefix backend main`:refs/heads/main --force
+          HEROKU_GIT_URL="https://heroku:${HEROKU_API_KEY}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git"
+          git remote add heroku "${HEROKU_GIT_URL}"
+          git subtree push --prefix backend heroku main || git push heroku $(git subtree split --prefix backend main):refs/heads/main --force
 
       - name: Verify deployment
         run: |
