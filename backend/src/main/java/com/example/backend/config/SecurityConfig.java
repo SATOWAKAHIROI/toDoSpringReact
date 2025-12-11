@@ -34,7 +34,7 @@ public class SecurityConfig {
 
             // 認証なしでアクセスできるurlを設定
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/users/**").permitAll()
+                .requestMatchers("/users/**").permitAll()
                 .anyRequest().authenticated()
             )
 
