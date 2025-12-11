@@ -70,6 +70,7 @@ public class TodoController {
 
     @DeleteMapping("/{userId}/{todoId}")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long userId, @PathVariable Long todoId) {
+        todoService.deleteTodo(userId, todoId);
         return ResponseEntity.ok(ApiResponse.success(null));
     }
 

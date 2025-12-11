@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
@@ -19,8 +19,14 @@ export default function Register() {
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-  const { register } = useAuth();
+  const { register, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/todo", { replace: true });
+    }
+  }, []);
 
   const handleButton = async (e: FormEvent) => {
     e.preventDefault();
@@ -63,7 +69,9 @@ export default function Register() {
   return (
     <div className="min-h-screen bg-blue-50 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-        <h1 className="text-3xl font-bold text-blue-600 mb-6 text-center">ユーザー登録ページ</h1>
+        <h1 className="text-3xl font-bold text-blue-600 mb-6 text-center">
+          ユーザー登録ページ
+        </h1>
         <form onSubmit={handleButton} className="space-y-4">
           {error && (
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
@@ -71,7 +79,9 @@ export default function Register() {
             </div>
           )}
           <div>
-            <label className="block text-blue-700 font-semibold mb-2">名前</label>
+            <label className="block text-blue-700 font-semibold mb-2">
+              名前
+            </label>
             <input
               id="name"
               name="name"
@@ -79,12 +89,16 @@ export default function Register() {
               required
               placeholder="山田 太郎"
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
               className="w-full px-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div>
-            <label className="block text-blue-700 font-semibold mb-2">メールアドレス</label>
+            <label className="block text-blue-700 font-semibold mb-2">
+              メールアドレス
+            </label>
             <input
               id="email"
               name="email"
@@ -92,12 +106,16 @@ export default function Register() {
               required
               placeholder="test@example.com"
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
               className="w-full px-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div>
-            <label className="block text-blue-700 font-semibold mb-2">パスワード</label>
+            <label className="block text-blue-700 font-semibold mb-2">
+              パスワード
+            </label>
             <input
               id="password"
               name="password"
@@ -111,7 +129,9 @@ export default function Register() {
             />
           </div>
           <div>
-            <label className="block text-blue-700 font-semibold mb-2">確認用パスワード</label>
+            <label className="block text-blue-700 font-semibold mb-2">
+              確認用パスワード
+            </label>
             <input
               id="confirmPassword"
               name="confirmPassword"
