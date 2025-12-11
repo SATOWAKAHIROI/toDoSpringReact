@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
-import { replace, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -101,6 +101,13 @@ export default function Login() {
           >
             {loading ? "送信中..." : "送信"}
           </button>
+
+          <Link
+            to="/register"
+            className="block text-center text-blue-600 hover:text-blue-800 font-semibold underline mt-4"
+          >
+            新規登録はこちら
+          </Link>
         </form>
       </div>
     </div>
