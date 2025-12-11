@@ -45,6 +45,7 @@ jobs:
           SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/test_db
           SPRING_DATASOURCE_USERNAME: test_user
           SPRING_DATASOURCE_PASSWORD: test_pass
+          SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
 
   deploy:
     needs: test
