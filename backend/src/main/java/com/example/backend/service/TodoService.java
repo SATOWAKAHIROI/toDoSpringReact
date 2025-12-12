@@ -9,6 +9,7 @@ import com.example.backend.dto.request.TodoRequest;
 import com.example.backend.dto.response.TodoResponse;
 import com.example.backend.entity.Todo;
 import com.example.backend.entity.User;
+import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.repository.TodoRepository;
 import com.example.backend.repository.UserRepository;
 
@@ -44,12 +45,7 @@ public class TodoService {
      * @return 取得したタスク
      */
     public TodoResponse getByUserIdAndTodoId(Long userId, Long todoId) {
-        Todo todo = todoRepository.findByIdAndCreatedById(todoId, userId).orElse(null);
-
-        // エラー処理は後ほど実装
-        if (todo == null) {
-            return null;
-        }
+        Todo todo = todoRepository.findByIdAndCreatedById(todoId, userId).orElseThrow(() -> new ResourceNotFoundException("指定されたタスクは存在しません。"));
 
         return TodoResponse.from(todo);
     }
@@ -64,12 +60,7 @@ public class TodoService {
     public TodoResponse createTodo(TodoRequest todoRequest, Long userId) {
         Todo todo = new Todo();
 
-        User user = userRepository.findById(userId).orElse(null);
-
-        // エラー処理は後ほど実装
-        if (user == null) {
-            return null;
-        }
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 
         todo.setTitle(todoRequest.getTitle());
         todo.setCompleted(todoRequest.isCompleted());
@@ -89,12 +80,7 @@ public class TodoService {
      * @return
      */
     public TodoResponse editTodo(TodoRequest todoRequest, Long userid, Long todoId) {
-        Todo todo = todoRepository.findByIdAndCreatedById(todoId, userid).orElse(null);
-
-        // エラー処理は後ほど実装
-        if (todo == null) {
-            return null;
-        }
+        Todo todo = todoRepository.findByIdAndCreatedById(todoId, userid).orElseThrow(() -> new ResourceNotFoundException("指定されたタスクは存在しません。"));
 
         todo.setTitle(todoRequest.getTitle());
         todo.setCompleted(todoRequest.isCompleted());
@@ -105,6 +91,8 @@ public class TodoService {
     }
 
     public void deleteTodo(Long userId, Long todoId) {
+        Todo todo = todoRepository.findByIdAndCreatedById(todoId, userId).orElseThrow(() -> new ResourceNotFoundException("指定されたタスクは存在しません。"));
+
         todoRepository.deleteByIdAndCreatedById(todoId, userId);
     }
 }

@@ -6,6 +6,8 @@ import com.example.backend.dto.request.UserRequest;
 import com.example.backend.dto.response.AuthResponse;
 import com.example.backend.dto.response.UserResponse;
 import com.example.backend.entity.User;
+import com.example.backend.exception.BadRequestException;
+import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.repository.UserRepository;
 import com.example.backend.security.JwtTokenProvider;
 
@@ -27,18 +29,13 @@ public class UserService {
      * @return 認証結果
      */
     public AuthResponse authUser(String email, String password) {
-        User user = userRepository.findByEmail(email).orElse(null);
-
-        // エラー処理は後ほど実装する
-        if (user == null) {
-            return null;
-        }
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("メールアドレスまたはパスワードが正しくありません。"));
 
         boolean passCheck = password.equals(user.getPassword());
 
         // エラー処理は後ほど実装する
         if (!passCheck) {
-            return null;
+            throw new BadRequestException("メールアドレスまたはパスワードが正しくありません。");
         }
 
         // トークン生成
@@ -56,12 +53,7 @@ public class UserService {
      * @return 取得したユーザー
      */
     public UserResponse getUserById(Long id) {
-        User user = userRepository.findById(id).orElse(null);
-
-        // エラー処理は後で実装
-        if (user == null) {
-            return null;
-        }
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 
         return UserResponse.from(user);
     }
@@ -77,7 +69,7 @@ public class UserService {
 
         // エラー処理は後で実装
         if (isExist) {
-            return null;
+            throw new BadRequestException("メールアドレス " + userRequest.getEmail() + "は既に存在します");
         }
 
         User user = new User();
@@ -98,12 +90,7 @@ public class UserService {
      * @return 更新したユーザー
      */
     public UserResponse editUserById(UserRequest userRequest, Long id) {
-        User user = userRepository.findById(id).orElse(null);
-
-        // エラー処理は後ほど実装
-        if (user == null) {
-            return null;
-        }
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 
         user.setName(userRequest.getName());
         user.setEmail(userRequest.getEmail());
@@ -120,6 +107,7 @@ public class UserService {
      * @param id 指定されたid
      */
     public void deleteById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
         userRepository.deleteById(id);
     }
 }
